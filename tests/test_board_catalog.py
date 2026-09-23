@@ -42,12 +42,20 @@ class Catalog(unittest.TestCase):
         self.assertEqual((big['name'], big['inch'], big['touch'], big['status'], big['calibrate']),
                          ('Guition', 10.1, 'GSL3670', 'new', False))
 
+    def test_a_stated_diagonal_is_the_glass_not_the_density(self):
+        core2 = SHAPES['m5core2']['catalog']
+        self.assertEqual((core2['name'], core2['model'], core2['inch'], core2['touch'], core2['calibrate']),
+                         ('M5Stack', 'Core2', 2.0, 'FT6336U', False))
+
     def test_what_the_files_say_is_worked_out_not_written(self):
         for board in profiles.CATALOG:
             catalog, values = SHAPES[board]['catalog'], profiles.board_values(board)
-            # The glass: its diagonal in pixels over its density.
+            # The glass: its diagonal in pixels over its density, unless the catalog states it for a board that takes
+            # another board's density on purpose (the Core2 the CYD's).
             side = SHAPES[board]['orientations']['landscape']
-            self.assertAlmostEqual(catalog['inch'], (side['width'] ** 2 + side['height'] ** 2) ** 0.5 / float(values['DISPLAY_DPI']),
+            stated = profiles.CATALOG[board].get('inch')
+            self.assertAlmostEqual(catalog['inch'], float(stated) if stated else
+                                   (side['width'] ** 2 + side['height'] ** 2) ** 0.5 / float(values['DISPLAY_DPI']),
                                    delta=0.05, msg=board)
             # A resistive panel is measured on the glass on the first start; a capacitive one reports pixels.
             chain = [path.name for path in profiles.chain(profiles.BOARDS[board])]

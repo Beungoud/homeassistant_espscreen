@@ -63,7 +63,13 @@ class Rules(unittest.TestCase):
                 screen = {'board': board, 'orientation': way, 'firmware_known': '0.2.103'}
                 full = camera_feed.box(screen, 'full')
                 for picture in ((1920, 1080), (720, 720), (1080, 1440), (2560, 1080), (1080, 1920)):
-                    w, h = camera_feed.alert_box(screen, picture)
+                    found = camera_feed.alert_box(screen, picture)
+                    if found is None:
+                        # Glass too low for a picture in the alert (the Core2's 240 px): full screen only, no still.
+                        self.assertIsNone(camera_feed.box(screen, 'thumb'), (board, way))
+                        self.assertIsNotNone(full, (board, way))
+                        continue
+                    w, h = found
                     self.assertLessEqual(w * h, full[0] * full[1], (board, way, picture))
                     self.assertLessEqual(w, full[0], (board, way, picture))
                     self.assertLessEqual(h, full[1], (board, way, picture))

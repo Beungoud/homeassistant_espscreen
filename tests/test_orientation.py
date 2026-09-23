@@ -104,8 +104,10 @@ class CameraBoxes(unittest.TestCase):
                     self.assertNotIn('camera', entry['orientations'][way], f'{board} {way}')
                 self.assertNotIn(board, camera_feed.BOXES, board)
                 continue
-            stated = {'full': [int(values['CAMERA_FULL_W']), int(values['CAMERA_FULL_H'])],
-                      'thumb': entry['orientations']['landscape']['camera']['thumb']}
+            stated = {'full': [int(values['CAMERA_FULL_W']), int(values['CAMERA_FULL_H'])]}
+            # Glass too low for a picture in the alert card (the Core2) has the full view and no still.
+            if 'thumb' in entry['orientations']['landscape']['camera']:
+                stated['thumb'] = entry['orientations']['landscape']['camera']['thumb']
             self.assertEqual(entry['camera'], stated, board)
             self.assertEqual(entry['orientations']['landscape']['camera'], stated, board)
             self.assertEqual(camera_feed.BOXES[board], {view: tuple(box) for view, box in stated.items()}, board)
@@ -129,6 +131,10 @@ class CameraBoxes(unittest.TestCase):
                 continue
             for way in core.ORIENTATIONS:
                 side = entry['orientations'][way]
+                if 'thumb' not in side['camera']:
+                    # No room for a still on this glass: the alert shows without one (test_alert_layout).
+                    self.assertEqual(board, 'm5core2', f'{board} {way}')
+                    continue
                 thumb_w, thumb_h = side['camera']['thumb']
                 self.assertGreater(thumb_w, 0, f'{board} {way}')
                 self.assertLessEqual(thumb_w, side['width'] - 2 * 14, f'{board} {way}: the still is wider than its card')

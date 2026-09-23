@@ -1,3 +1,12 @@
+## 0.3.15 (firmware 0.3.8)
+
+Experimental support for the M5Stack Core2.
+
+- **New screen** offers the **M5Stack Core2** (2 inch, 320 × 240, marked Experimental): the CYD's six tiles per page and its compact look on a smaller glass. The three circles under the picture turn the page (A and C) and go back to page 1 (B).
+- Album covers, camera tiles and camera alerts show pictures, as on the Guition.
+- Its backlight is driven through the Core2's AXP192 power chip, so brightness, standby, night mode and the alert's flashes work as on the other screens. docs/M5CORE2.md lists what has and has not been tried on the hardware.
+- Nothing to do for your other screens: they build the same firmware as before.
+
 ## 0.3.14 (firmware 0.3.8)
 
 The Tessera logo on a screen that is starting.

@@ -204,7 +204,7 @@ LINT_KEEP = {
     # Only a log line or the rate limiter's reason shows these.
     'history range', 'card button ', 'header navigation', 'media key ', 'let go', 'too short (', 'already handled in this contact',
     'same button within the debounce window', 'no runtime tiles', 'setting off', 'screen dimmed', 'card open',
-    'detail card open', 'camera open', 'a slider is being dragged', 'USB calibration ready; no tile actions',
+    'detail card open', 'camera open', 'a slider is being dragged', 'alert shown', 'touch test', 'settings open', 'USB calibration ready; no tile actions',
     'GT911 touch test ready; no tile actions',
     'configuration not ready',
     'UI_TEST START: page/overlay render stress, no HA actions', 'Color', 'Color temperature', 'Brightness',
@@ -212,7 +212,7 @@ LINT_KEEP = {
     'None', 'Auto', 'Wh',
     # Placeholders of the YAML tree that the runtime tiles replace before a screen shows them, and profile defaults.
     'Lamp', 'Plug', 'Evening', 'All off', 'AC', 'Vacuum', 'Tile 7', 'Tile 8', 'Tile 9', 'Tile 10', 'Light', 'Light Color',
-    'Climate', 'Example lamp', 'My CYD', 'My Guition', 'My Guition 10', 'My Guition 7', 'My Guition 7 V2', 'My Waveshare', 'My Waveshare 7', 'My Waveshare 4B', 'My Hosyond',
+    'Climate', 'Example lamp', 'My CYD', 'My Guition', 'My Guition 10', 'My Guition 7', 'My Guition 7 V2', 'My Waveshare', 'My Waveshare 7', 'My Waveshare 4B', 'My Hosyond', 'My Core2',
 }
 LINT_FILES = ('components/smart_display/*.h', 'packages/core.yaml', 'packages/boards/*.yaml', 'packages/looks/*.yaml',
               'packages/features/*.yaml', 'packages/hardware/*.yaml')

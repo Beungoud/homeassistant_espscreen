@@ -370,6 +370,69 @@
   "rows": 4,
   "width": 1280
  },
+ "checkout/m5core2.yaml": {
+  "alert": {
+   "line": 16,
+   "title_line": 21
+  },
+  "board": "m5core2",
+  "camera": {
+   "full": [
+    320,
+    240
+   ]
+  },
+  "can_standby": true,
+  "catalog": {
+   "calibrate": false,
+   "choices": {},
+   "inch": 2.0,
+   "model": "Core2",
+   "name": "M5Stack",
+   "order": 10,
+   "status": "experimental",
+   "touch": "FT6336U"
+  },
+  "columns": 2,
+  "dimmable": true,
+  "dpi": 143,
+  "height": 240,
+  "look": "compact",
+  "orientations": {
+   "landscape": {
+    "camera": {
+     "full": [
+      320,
+      240
+     ]
+    },
+    "columns": 2,
+    "height": 240,
+    "rotation": 0,
+    "rows": 3,
+    "width": 320
+   },
+   "portrait": {
+    "camera": {
+     "full": [
+      240,
+      320
+     ],
+     "thumb": [
+      190,
+      107
+     ]
+    },
+    "columns": 1,
+    "height": 320,
+    "rotation": 90,
+    "rows": 4,
+    "width": 240
+   }
+  },
+  "rows": 3,
+  "width": 320
+ },
  "checkout/waveshare35.yaml": {
   "alert": {
    "line": 23,
@@ -995,6 +1058,69 @@
   "rows": 4,
   "width": 1280
  },
+ "m5core2": {
+  "alert": {
+   "line": 16,
+   "title_line": 21
+  },
+  "board": "m5core2",
+  "camera": {
+   "full": [
+    320,
+    240
+   ]
+  },
+  "can_standby": true,
+  "catalog": {
+   "calibrate": false,
+   "choices": {},
+   "inch": 2.0,
+   "model": "Core2",
+   "name": "M5Stack",
+   "order": 10,
+   "status": "experimental",
+   "touch": "FT6336U"
+  },
+  "columns": 2,
+  "dimmable": true,
+  "dpi": 143,
+  "height": 240,
+  "look": "compact",
+  "orientations": {
+   "landscape": {
+    "camera": {
+     "full": [
+      320,
+      240
+     ]
+    },
+    "columns": 2,
+    "height": 240,
+    "rotation": 0,
+    "rows": 3,
+    "width": 320
+   },
+   "portrait": {
+    "camera": {
+     "full": [
+      240,
+      320
+     ],
+     "thumb": [
+      190,
+      107
+     ]
+    },
+    "columns": 1,
+    "height": 320,
+    "rotation": 90,
+    "rows": 4,
+    "width": 240
+   }
+  },
+  "rows": 3,
+  "width": 320
+ },
  "packages/cyd.yaml": {
   "alert": {
    "line": 16,
@@ -1365,6 +1491,69 @@
   },
   "rows": 4,
   "width": 1280
+ },
+ "packages/m5core2.yaml": {
+  "alert": {
+   "line": 16,
+   "title_line": 21
+  },
+  "board": "m5core2",
+  "camera": {
+   "full": [
+    320,
+    240
+   ]
+  },
+  "can_standby": true,
+  "catalog": {
+   "calibrate": false,
+   "choices": {},
+   "inch": 2.0,
+   "model": "Core2",
+   "name": "M5Stack",
+   "order": 10,
+   "status": "experimental",
+   "touch": "FT6336U"
+  },
+  "columns": 2,
+  "dimmable": true,
+  "dpi": 143,
+  "height": 240,
+  "look": "compact",
+  "orientations": {
+   "landscape": {
+    "camera": {
+     "full": [
+      320,
+      240
+     ]
+    },
+    "columns": 2,
+    "height": 240,
+    "rotation": 0,
+    "rows": 3,
+    "width": 320
+   },
+   "portrait": {
+    "camera": {
+     "full": [
+      240,
+      320
+     ],
+     "thumb": [
+      190,
+      107
+     ]
+    },
+    "columns": 1,
+    "height": 320,
+    "rotation": 90,
+    "rows": 4,
+    "width": 240
+   }
+  },
+  "rows": 3,
+  "width": 320
  },
  "packages/waveshare35.yaml": {
   "alert": {

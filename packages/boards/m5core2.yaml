@@ -1,0 +1,138 @@
+# ESP Screens - M5Stack Core2 board: a 2-inch 320 x 240 IPS panel (ILI9342C over SPI) with FT6336U capacitive
+# touch, an ESP32 with 16 MB flash and 8 MB of quad PSRAM, and an AXP192 power chip that feeds the panel and its
+# backlight.
+#
+# The panel is one of ESPHome's own models (mipi_spi, M5CORE2), so its pins and its init sequence come from ESPHome.
+# Two parts are this repository's own: the backlight, which is a supply of the AXP192 and not a PWM pin
+# (components/axp192), and the touch panel, whose glass reaches below the picture onto the three circles printed
+# there, A, B and C (components/ft6336u). Those are page back, home and page forward.
+#
+# The glass is 41 x 30 mm, smaller than a CYD's, but it has the CYD's pixels: this board states the CYD's density,
+# so it takes the CYD's compact look and its six cells as they are, each a third smaller on the glass.
+#
+# A board file is the board's hardware, the facts the shared tree takes from it (its glass and its grid), and the
+# features it has; docs/PROFILES.md says how the files of a screen fit together, docs/M5CORE2.md what this board
+# needs. Two entry files include this one: checkout/m5core2.yaml (a build on this computer) and packages/m5core2.yaml
+# (the package a screen builds from over GitHub).
+packages:
+  # How every board's firmware is built (ESP-IDF, as ESPHome recommends it).
+  build: !include ../hardware/esp-idf.yaml
+  # The cards of this board's grid, one per cell (tools/generate_cells.py writes them; docs/RESPONSIVE.md).
+  cells: !include ../cells/6.yaml
+  # Every size of the compact look, at the CYD's density below.
+  look: !include ../looks/compact.yaml
+  touch: !include ../features/capacitive-touch.yaml
+  backlight: !include ../features/backlight.yaml
+  # Camera pictures and album covers, decoded into the 8 MB of PSRAM.
+  camera: !include ../features/camera.yaml
+  self_test: !include ../features/self-test.yaml
+
+substitutions:
+  # The key of this board file; the firmware reports it so ESP Screens knows what board a screen is.
+  BOARD_ID: "m5core2"
+  DEVICE_NAME: "m5core2-new"
+  DEVICE_FRIENDLY_NAME: "My Core2"
+
+  # The glass: the panel's own pixels, which the display block below always drives, lying down as it is.
+  PANEL_W: "320"
+  PANEL_H: "240"
+  # 400 diagonal pixels over 2.0 inches is 200 dpi, where a card of the compact look would leave room for two per
+  # page (tools/propose_grid.py). The CYD's 143 keeps its six: the same pixels, a third smaller on the glass.
+  DISPLAY_DPI: "143"
+  # The tile grid: columns and rows of cells lying down, and standing up (one column of four, as the CYD).
+  GRID_COLS: "2"
+  GRID_ROWS: "3"
+  GRID_COLS_PORTRAIT: "1"
+  GRID_ROWS_PORTRAIT: "4"
+  LVGL_BUFFER_SIZE: "12%"                       # LVGL's draw buffer as a share of the screen
+
+# ============================================================
+# No need to edit below this line.
+# ============================================================
+
+esp32:
+  board: m5stack-core2
+  variant: esp32
+  flash_size: 16MB
+  framework:
+    advanced:
+      # As on the CYD, the other classic ESP32: ~40 KB more IRAM and a smaller binary.
+      sram1_as_iram: true
+
+# ESPHome's M5CORE2 model keeps its frame in PSRAM.
+psram:
+  mode: quad
+  speed: 80MHz
+
+spi:
+  id: lcd
+  clk_pin: GPIO18
+  mosi_pin: GPIO23
+
+# The AXP192 and the touch panel share the internal bus.
+i2c:
+  id: bus_internal
+  sda: GPIO21
+  scl: GPIO22
+  scan: true
+
+output:
+  # The backlight is the AXP192's DCDC3 (components/axp192): a level of 0 switches it off, anything above sets its
+  # voltage between 2.5 and 3.3 V. The same output powers the panel up and takes it out of reset at boot.
+  - platform: axp192
+    id: gpio_backlight_pwm
+    i2c_id: bus_internal
+
+display:
+  - platform: mipi_spi
+    id: my_display
+    spi_id: lcd
+    model: M5CORE2
+    update_interval: never
+    auto_clear_enabled: false
+
+# FT6336U, polled as the other boards' panels (its interrupt line on GPIO39 only marks the edges). The strip below
+# the picture never reaches the screen: a press of A, B or C is on_button (components/ft6336u).
+touchscreen:
+  - platform: ft6336u
+    id: ts_touch
+    i2c_id: bus_internal
+    display: my_display
+    update_interval: 20ms
+    on_button:
+      - lambda: |-
+          // A circle counts as a touch: it restarts standby and Back to page 1, and wakes a dimmed screen first.
+          id(last_touch_ms) = millis();
+          id(last_use_ms) = millis();
+          if (id(display_dimmed)) {
+            id(wake_display).execute();
+            return;
+          }
+          const char *blocked = !runtime_tiles::enabled   ? "no runtime tiles"
+                              : id(alert_active)          ? "alert shown"
+                              : id(calibration_active)    ? "touch test"
+                              : nullptr;
+          // B is the way home from anywhere, as the house in the top bar; A and C turn the page only where a swipe may.
+          if (!blocked && button != 1) {
+            if (runtime_tiles::touch_input::swipe_blocked) blocked = runtime_tiles::touch_input::swipe_blocked();
+            if (!blocked && settings_screen::visible()) blocked = "settings open";
+            if (!blocked && runtime_tiles::camera_visible()) blocked = "camera open";
+            if (!blocked && runtime_tiles::detail_root && !lv_obj_has_flag(runtime_tiles::detail_root, LV_OBJ_FLAG_HIDDEN))
+              blocked = "detail card open";
+          }
+          if (blocked) {
+            ESP_LOGI("touch", "button %c ignored: %s", 'A' + button, blocked);
+            return;
+          }
+          if (button == 1) {
+            ESP_LOGI("touch", "button B: back to page 1");
+            if (runtime_tiles::back_home) runtime_tiles::back_home();
+          } else {
+            // As the page buttons on the glass: straight to the page before or after, without a swipe's glow.
+            const int target = button == 0 ? runtime_tiles::previous_button_page(id(tile_page))
+                                            : runtime_tiles::sequential_page(id(tile_page), 1);
+            if (target == id(tile_page)) return;
+            ESP_LOGI("touch", "button %c: page %d -> %d", 'A' + button, id(tile_page), target);
+            id(tile_page) = target;
+            id(show_tile_page).execute();
+          }

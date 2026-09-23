@@ -65,7 +65,8 @@ STATUSES = ('stable', 'new', 'experimental')
 def catalog_of(board, values, lying):
     """What New screen and the screen list say about a board: its entry in boards.yaml, with what its files say.
 
-    The size in inches is the glass's diagonal over its density, the touch controller the platform of its
+    The size in inches is the glass's diagonal over its density, or the catalog's `inch` for a board that states
+    another board's density on purpose (the Core2 takes the CYD's), the touch controller the platform of its
     touchscreen, and a board that reads a resistive panel asks for a touch calibration on its first start
     (features/resistive-touch.yaml). A choice is a substitution the board file offers, whose first value is the one
     the board file sets; a choice that is not, or an unknown status, stops the build of this file.
@@ -90,7 +91,8 @@ def catalog_of(board, values, lying):
     touch = re.search(r'(?m)^touchscreen:\n\s*- platform: (\w+)', text)
     return {'order': list(profiles.CATALOG).index(board), 'name': entry['name'].strip(), 'model': entry['model'].strip(),
             'status': entry['status'],
-            'inch': round(math.hypot(lying['width'], lying['height']) / float(values['DISPLAY_DPI']), 1),
+            'inch': float(entry['inch']) if entry.get('inch') else
+                    round(math.hypot(lying['width'], lying['height']) / float(values['DISPLAY_DPI']), 1),
             'touch': touch[1].upper() if touch else '',
             'calibrate': any(path.name == 'resistive-touch.yaml' for path in chain),
             'choices': choices}

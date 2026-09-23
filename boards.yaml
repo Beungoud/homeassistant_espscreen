@@ -12,6 +12,8 @@
 #   file      the board file under packages/boards/
 #   name      what people call the board; New screen shows it with its size in inches
 #   model     what is printed on the board or its box, to tell it from its neighbours
+#   inch      optional: the diagonal of the glass, for a board whose file states another board's density on purpose
+#             (otherwise it is worked out from the pixels and the density)
 #   status    stable (tried on the glass by the project), new (tried, few screens out there yet) or experimental
 #             (built and rendered, not yet tried on the hardware)
 #   choices   optional: a substitution the board file offers for a part that differs between boards sold under the same
@@ -80,4 +82,12 @@ hosyond40:
   file: hosyond40.yaml
   name: Hosyond
   model: ESP32-32E E32R40T
+  status: experimental
+
+m5core2:
+  file: m5core2.yaml
+  name: M5Stack
+  model: Core2
+  # 2 inches: the board file states the CYD's density, so the CYD's six cards fit (docs/M5CORE2.md).
+  inch: 2.0
   status: experimental
