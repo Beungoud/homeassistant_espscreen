@@ -1,3 +1,8 @@
+## Unreleased
+
+- **New screen offers the M5Stack Core2** (2 inch, 320 × 240, marked Experimental): the CYD's six tiles per page and its compact look on a smaller glass. The three circles under the picture turn the page (A and C) and go back to page 1 (B). Its backlight is driven through the Core2's AXP192 power chip, so brightness, standby and night mode work as on the other screens. docs/M5CORE2.md lists what has and has not been tried on the hardware.
+- Nothing to do for your other screens: they build the same firmware as before.
+
 ## 0.4.93 (firmware 0.59.0)
 
 - **A camera opens full screen at once again from its live tile.** Since 0.4.91 a tap on a live tile took about 11 seconds to show the camera full screen: its first try went out without an address while the tile's own stream was still ending, and the second came 10 seconds later.

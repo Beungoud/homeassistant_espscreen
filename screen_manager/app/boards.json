@@ -1732,6 +1732,127 @@
   "wide_slots": false,
   "width": 800
  },
+ "checkout/m5core2.yaml": {
+  "alert": {
+   "line": 16,
+   "title_line": 21
+  },
+  "battery": false,
+  "board": "m5core2",
+  "camera": {
+   "full": [
+    320,
+    240
+   ]
+  },
+  "can_standby": true,
+  "catalog": {
+   "calibrate": false,
+   "choices": {},
+   "inch": 2.0,
+   "model": "Core2",
+   "name": "M5Stack Core2",
+   "order": 31,
+   "settings": [],
+   "status": "experimental",
+   "touch": "FT6336U"
+  },
+  "chip": "ESP32",
+  "columns": 2,
+  "dimmable": true,
+  "dpi": 143,
+  "features": [],
+  "firmware": "0.59.0",
+  "fonts": {
+   "headline": 18,
+   "icon": 28,
+   "icon_home": 25,
+   "icon_mini": 18,
+   "label": 11,
+   "setpoint": 40,
+   "sublabel": 11,
+   "sublabel_big": 14,
+   "watch_icon": 12,
+   "watch_value": 22
+  },
+  "height": 240,
+  "hotspot": true,
+  "look": "compact",
+  "max_bar_items": 12,
+  "max_pages": 24,
+  "max_tiles": 128,
+  "modules": [
+   "dock",
+   "vacuum_card",
+   "cover_groups",
+   "clock_faces",
+   "doorbell",
+   "text_card",
+   "light_presets"
+  ],
+  "orientations": {
+   "landscape": {
+    "camera": {
+     "full": [
+      320,
+      240
+     ]
+    },
+    "columns": 2,
+    "height": 240,
+    "max": [
+     3,
+     4
+    ],
+    "min": [
+     1,
+     1
+    ],
+    "rotation": 0,
+    "rows": 3,
+    "width": 320
+   },
+   "portrait": {
+    "camera": {
+     "full": [
+      240,
+      320
+     ],
+     "thumb": [
+      190,
+      107
+     ]
+    },
+    "columns": 1,
+    "height": 320,
+    "max": [
+     2,
+     6
+    ],
+    "min": [
+     1,
+     1
+    ],
+    "rotation": 90,
+    "rows": 4,
+    "width": 240
+   }
+  },
+  "rows": 3,
+  "spacing": {
+   "circle": 36,
+   "gap": 6,
+   "gap_y": 4,
+   "margin": 9,
+   "page_bar": 36,
+   "radius": 18,
+   "tile_pad": 8,
+   "top": 37
+  },
+  "tier": "full",
+  "wide_slots": false,
+  "width": 320
+ },
  "checkout/reterminald1001.yaml": {
   "alert": {
    "line": 27,
@@ -5672,6 +5793,127 @@
   "wide_slots": false,
   "width": 800
  },
+ "m5core2": {
+  "alert": {
+   "line": 16,
+   "title_line": 21
+  },
+  "battery": false,
+  "board": "m5core2",
+  "camera": {
+   "full": [
+    320,
+    240
+   ]
+  },
+  "can_standby": true,
+  "catalog": {
+   "calibrate": false,
+   "choices": {},
+   "inch": 2.0,
+   "model": "Core2",
+   "name": "M5Stack Core2",
+   "order": 31,
+   "settings": [],
+   "status": "experimental",
+   "touch": "FT6336U"
+  },
+  "chip": "ESP32",
+  "columns": 2,
+  "dimmable": true,
+  "dpi": 143,
+  "features": [],
+  "firmware": "0.59.0",
+  "fonts": {
+   "headline": 18,
+   "icon": 28,
+   "icon_home": 25,
+   "icon_mini": 18,
+   "label": 11,
+   "setpoint": 40,
+   "sublabel": 11,
+   "sublabel_big": 14,
+   "watch_icon": 12,
+   "watch_value": 22
+  },
+  "height": 240,
+  "hotspot": true,
+  "look": "compact",
+  "max_bar_items": 12,
+  "max_pages": 24,
+  "max_tiles": 128,
+  "modules": [
+   "dock",
+   "vacuum_card",
+   "cover_groups",
+   "clock_faces",
+   "doorbell",
+   "text_card",
+   "light_presets"
+  ],
+  "orientations": {
+   "landscape": {
+    "camera": {
+     "full": [
+      320,
+      240
+     ]
+    },
+    "columns": 2,
+    "height": 240,
+    "max": [
+     3,
+     4
+    ],
+    "min": [
+     1,
+     1
+    ],
+    "rotation": 0,
+    "rows": 3,
+    "width": 320
+   },
+   "portrait": {
+    "camera": {
+     "full": [
+      240,
+      320
+     ],
+     "thumb": [
+      190,
+      107
+     ]
+    },
+    "columns": 1,
+    "height": 320,
+    "max": [
+     2,
+     6
+    ],
+    "min": [
+     1,
+     1
+    ],
+    "rotation": 90,
+    "rows": 4,
+    "width": 240
+   }
+  },
+  "rows": 3,
+  "spacing": {
+   "circle": 36,
+   "gap": 6,
+   "gap_y": 4,
+   "margin": 9,
+   "page_bar": 36,
+   "radius": 18,
+   "tile_pad": 8,
+   "top": 37
+  },
+  "tier": "full",
+  "wide_slots": false,
+  "width": 320
+ },
  "packages/crowpanel101.yaml": {
   "alert": {
    "line": 18,
@@ -7404,6 +7646,127 @@
   "tier": "full",
   "wide_slots": false,
   "width": 800
+ },
+ "packages/m5core2.yaml": {
+  "alert": {
+   "line": 16,
+   "title_line": 21
+  },
+  "battery": false,
+  "board": "m5core2",
+  "camera": {
+   "full": [
+    320,
+    240
+   ]
+  },
+  "can_standby": true,
+  "catalog": {
+   "calibrate": false,
+   "choices": {},
+   "inch": 2.0,
+   "model": "Core2",
+   "name": "M5Stack Core2",
+   "order": 31,
+   "settings": [],
+   "status": "experimental",
+   "touch": "FT6336U"
+  },
+  "chip": "ESP32",
+  "columns": 2,
+  "dimmable": true,
+  "dpi": 143,
+  "features": [],
+  "firmware": "0.59.0",
+  "fonts": {
+   "headline": 18,
+   "icon": 28,
+   "icon_home": 25,
+   "icon_mini": 18,
+   "label": 11,
+   "setpoint": 40,
+   "sublabel": 11,
+   "sublabel_big": 14,
+   "watch_icon": 12,
+   "watch_value": 22
+  },
+  "height": 240,
+  "hotspot": true,
+  "look": "compact",
+  "max_bar_items": 12,
+  "max_pages": 24,
+  "max_tiles": 128,
+  "modules": [
+   "dock",
+   "vacuum_card",
+   "cover_groups",
+   "clock_faces",
+   "doorbell",
+   "text_card",
+   "light_presets"
+  ],
+  "orientations": {
+   "landscape": {
+    "camera": {
+     "full": [
+      320,
+      240
+     ]
+    },
+    "columns": 2,
+    "height": 240,
+    "max": [
+     3,
+     4
+    ],
+    "min": [
+     1,
+     1
+    ],
+    "rotation": 0,
+    "rows": 3,
+    "width": 320
+   },
+   "portrait": {
+    "camera": {
+     "full": [
+      240,
+      320
+     ],
+     "thumb": [
+      190,
+      107
+     ]
+    },
+    "columns": 1,
+    "height": 320,
+    "max": [
+     2,
+     6
+    ],
+    "min": [
+     1,
+     1
+    ],
+    "rotation": 90,
+    "rows": 4,
+    "width": 240
+   }
+  },
+  "rows": 3,
+  "spacing": {
+   "circle": 36,
+   "gap": 6,
+   "gap_y": 4,
+   "margin": 9,
+   "page_bar": 36,
+   "radius": 18,
+   "tile_pad": 8,
+   "top": 37
+  },
+  "tier": "full",
+  "wide_slots": false,
+  "width": 320
  },
  "packages/reterminald1001.yaml": {
   "alert": {

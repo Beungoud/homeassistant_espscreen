@@ -13,7 +13,7 @@ Every table in the firmware with one entry per tile or per page is sized from tw
 | Board class | Tiles | Pages | Why |
 | --- | --- | --- | --- |
 | ESP32 without PSRAM (CYD, CYD ILI9342, Hosyond 4-inch) | 64 | 8 | everything a tile holds stays inside the chip |
-| ESP32-S3 with 8 MB PSRAM (Guition 4-inch, Waveshare, Sunton, JC3248W535) | 128 | 24 | the tile list, the cards and a tile's extras live in PSRAM |
+| ESP32-S3 with 8 MB PSRAM (Guition 4-inch, Waveshare, Sunton, JC3248W535), and the ESP32 of the M5Stack Core2 with its 8 MB PSRAM | 128 | 24 | the tile list, the cards and a tile's extras live in PSRAM |
 | ESP32-P4 (Guition 7-inch and 10.1-inch) | 256 | 16 | PSRAM, and several times the memory inside the chip of an S3 |
 
 A page's cells still count: a screen holds no more tiles than its pages have cells, so a two by two grid holds 96 tiles

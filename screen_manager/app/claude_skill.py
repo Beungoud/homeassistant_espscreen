@@ -50,7 +50,17 @@ def _grids():
         grids.setdefault((SHAPES[board]['columns'], SHAPES[board]['rows']), []).append(f'the {_board(board)}')
     return '; '.join(f'{columns} × {rows} on {_and(boards)}' for (columns, rows), boards in grids.items())
 
-NAMES = list(dict.fromkeys(SHAPES[board].get('catalog', {}).get('name', board) for board in BOARD_KEYS))
+def _names():
+    """The catalog's names, each once; a maker with boards of more than one name ("M5Stack Tab5", "M5Stack Core2") is
+    named once, by its maker alone."""
+    names = list(dict.fromkeys(SHAPES[board].get('catalog', {}).get('name', board) for board in BOARD_KEYS))
+    makers = {}
+    for name in names:
+        makers.setdefault(name.split()[0], []).append(name)
+    return list(dict.fromkeys(maker if len(makers[maker]) > 1 else name
+                              for name in names for maker in [name.split()[0]]))
+
+NAMES = _names()
 # The words after the boards are few, so the catalog's names have the room: each maker a new board brings adds its name.
 DESCRIPTION = f'ESP Screens ({_and(NAMES)}) in Home Assistant: order tiles, show alerts, open a page, keep awake.'
 TYPES = {'string': 'text', 'int': 'number', 'bool': 'on/off'}
