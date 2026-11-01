@@ -19,6 +19,7 @@
 #include <atomic>
 #include <cstdint>
 #ifdef USE_ESP32
+#include <sdkconfig.h>
 #include <esp_heap_caps.h>
 #include <freertos/FreeRTOS.h>
 #include <freertos/task.h>
@@ -40,12 +41,16 @@ struct Task {
 inline bool start(Task &task, TaskFunction_t fn, const char *name, uint32_t stack, void *arg, UBaseType_t priority,
                   BaseType_t core) {
   task.handle = nullptr;
+#if !CONFIG_IDF_TARGET_ESP32 || CONFIG_FREERTOS_TASK_CREATE_ALLOW_EXT_MEM
   task.in_psram.store(true, std::memory_order_release);
   if (xTaskCreatePinnedToCoreWithCaps(fn, name, stack, arg, priority, &task.handle, core,
                                       MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT) == pdPASS)
     return true;
   // Nothing ran: the flag can still change.
   task.handle = nullptr;
+#endif
+  // An ESP32 with PSRAM (the M5Stack Core2) has the option off: there a stack in PSRAM is not refused, it asserts in
+  // xPortcheckValidStackMem, so its tasks stay inside the chip, as on the boards without PSRAM.
   task.in_psram.store(false, std::memory_order_release);
   return xTaskCreatePinnedToCore(fn, name, stack, arg, priority, &task.handle, core) == pdPASS;
 }
